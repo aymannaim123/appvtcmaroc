@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07090d" />
+  <title>NOVA Remote — Télécommande universelle premium</title>
+  <meta name="description" content="Landing page 3D interactive pour une télécommande universelle premium." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <header class="nav-shell">
+    <nav class="nav container">
+      <a class="brand" href="#hero" aria-label="NOVA accueil"><span class="brand-mark">N</span><span>NOVA</span></a>
+      <div class="nav-links"><a href="#precision">Précision</a><a href="#ecosystem">Écosystème</a><a href="#inside">Technologie</a></div>
+      <a class="nav-cta" href="#buy">Précommander <span>↗</span></a>
+    </nav>
+  </header>
+  <main>
+    <section id="hero" class="hero section">
+      <div class="hero-grid container">
+        <div class="hero-copy">
+          <div class="eyebrow"><span></span> Contrôle universel, réinventé</div>
+          <h1>Un seul geste.<br><em>Tout répond.</em></h1>
+          <p class="lead">Une télécommande pensée comme un objet de précision : tactile, lumineuse, contextuelle et capable de piloter votre univers multimédia.</p>
+          <div class="hero-actions">
+            <a href="#buy" class="btn primary">Découvrir NOVA <span>→</span></a>
+            <button class="btn ghost" id="explodeBtn"><span class="play-dot">✦</span> Voir l'intérieur</button>
+          </div>
+          <div class="hero-meta">
+            <div><strong>0.08 s</strong><span>temps de réponse</span></div>
+            <div><strong>120+</strong><span>marques compatibles</span></div>
+            <div><strong>30 j</strong><span>autonomie typique</span></div>
+          </div>
+        </div>
+        <div class="stage-wrap" aria-label="Télécommande 3D interactive">
+          <div class="stage-card">
+            <canvas id="scene"></canvas>
+            <div class="stage-ui top-left"><span>MODEL</span><strong>NOVA / X1</strong></div>
+            <div class="stage-ui bottom-left"><span class="live-dot"></span> Interactive object</div>
+            <div class="stage-ui right-label"><span>01</span><div></div><strong>FORM</strong></div>
+          </div>
+          <div class="drag-hint">Glissez pour tourner • scrollez pour explorer</div>
+        </div>
+      </div>
+      <div class="orb orb-a"></div><div class="orb orb-b"></div>
+    </section>
+    <section id="precision" class="section precision">
+      <div class="container split">
+        <div class="sticky-copy">
+          <div class="eyebrow"><span></span> 01 — Précision</div>
+          <h2>Conçue pour disparaître dans la main.</h2>
+          <p>La forme légèrement asymétrique guide naturellement le pouce. Les touches les plus utilisées sont sculptées pour être reconnues sans regarder.</p>
+          <div class="feature-list">
+            <div><b>Haptique adaptative</b><span>Retour tactile selon l'action.</span></div>
+            <div><b>Anneau orbital</b><span>Navigation précise et gestuelle.</span></div>
+            <div><b>Éclairage contextuel</b><span>Seules les touches utiles s'allument.</span></div>
+          </div>
+        </div>
+        <div class="detail-panel">
+          <div class="detail-ring ring-1"></div><div class="detail-ring ring-2"></div>
+          <div class="macro-remote"><div class="macro-screen"><span>Living room</span><strong>Movie mode</strong></div><div class="macro-pad"><i>⌃</i><i>‹</i><b>OK</b><i>›</i><i>⌄</i></div><div class="macro-row"><span></span><span></span><span></span><span></span></div></div>
+          <div class="annotation a1"><span></span>Verre micro-texturé</div><div class="annotation a2"><span></span>Châssis aluminium</div><div class="annotation a3"><span></span>Retour haptique</div>
+        </div>
+      </div>
+    </section>
+    <section id="ecosystem" class="section ecosystem">
+      <div class="container">
+        <div class="section-head"><div class="eyebrow"><span></span> 02 — Écosystème</div><h2>Une interface.<br>Des centaines d'appareils.</h2><p>NOVA apprend les habitudes de la pièce et compose automatiquement les commandes les plus pertinentes.</p></div>
+        <div class="device-grid">
+          <article class="device-card large"><div class="card-kicker">SCENE / CINEMA</div><h3>Film du soir</h3><p>TV, ampli, lumière et climatisation se synchronisent en un seul appui.</p><div class="living-room-art"><div class="tv-glow"></div><div class="tv"></div><div class="console"></div><div class="sofa"></div></div></article>
+          <article class="device-card"><div class="device-icon">TV</div><h3>Smart TV</h3><p>Samsung, LG, Sony et plus.</p></article>
+          <article class="device-card"><div class="device-icon">◫</div><h3>Box & streaming</h3><p>Apple TV, Android TV, Fire TV.</p></article>
+          <article class="device-card"><div class="device-icon">◒</div><h3>Audio</h3><p>Barres de son, amplis et multiroom.</p></article>
+          <article class="device-card accent-card"><span class="pulse"></span><div><div class="card-kicker">NOVA LINK</div><h3>Détection automatique</h3><p>Les appareils apparaissent dès qu'ils sont reconnus sur votre réseau.</p></div></article>
+        </div>
+      </div>
+    </section>
+    <section id="inside" class="section inside">
+      <div class="container inside-grid">
+        <div class="chip-visual"><div class="grid-floor"></div><div class="chip-core"><small>NOVA</small><strong>N1</strong><span>NEURAL CONTROL</span></div><div class="trace t1"></div><div class="trace t2"></div><div class="trace t3"></div><div class="trace t4"></div></div>
+        <div class="inside-copy"><div class="eyebrow"><span></span> 03 — Technologie</div><h2>Rapide parce qu'elle anticipe.</h2><p>Le moteur NOVA N1 mémorise les séquences d'usage, réduit le nombre d'actions et garde la logique de contrôle locale pour une réponse instantanée.</p><div class="spec-grid"><div><strong>BLE 5.3</strong><span>faible latence</span></div><div><strong>IR 360°</strong><span>multi-direction</span></div><div><strong>Wi‑Fi</strong><span>contrôle réseau</span></div><div><strong>USB‑C</strong><span>charge rapide</span></div></div></div>
+      </div>
+    </section>
+    <section id="buy" class="section purchase"><div class="container purchase-card"><div><div class="eyebrow"><span></span> Édition de lancement</div><h2>Moins de boutons.<br>Plus de contrôle.</h2></div><div class="buy-box"><span>À partir de</span><strong>1 990 MAD</strong><button class="btn primary wide">Précommander <span>→</span></button><small>Prototype de démonstration — concept landing page.</small></div></div></section>
+  </main>
+  <footer class="footer container"><div class="brand"><span class="brand-mark">N</span><span>NOVA</span></div><span>Concept 3D interactif — démonstration.</span></footer>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
