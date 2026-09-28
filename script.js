@@ -210,9 +210,9 @@ function setExploded(on){
       b.position,
       {
         z:on?1.5+(i%3)*.08:.82,
-        y:on?b.position.y+(i%2?-.06:.06):b.userData.baseY ?? b.position.y
+        y:on?b.position.y+(i%2?-.06:.06):(b.userData.baseY ?? b.position.y),
+        duration:.85
       },
-      {duration:.85},
       0
     );
   });
