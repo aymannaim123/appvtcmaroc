@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07090d" />
+  <title>NOVA Remote — Télécommande universelle premium</title>
+  <meta name="description" content="Landing page 3D interactive pour une télécommande universelle premium." />
+  <style>:root {
+  --bg: #07090d;
+  --panel: rgba(255,255,255,.055);
+  --panel-2: rgba(255,255,255,.025);
+  --line: rgba(255,255,255,.11);
+  --text: #f5f6f8;
+  --muted: #a7adb8;
+  --lime: #baff4a;
+  --cyan: #7be7ff;
+  --violet: #a18cff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; color: var(--text); background:
+    radial-gradient(circle at 78% 10%, rgba(102,78,255,.15), transparent 31%),
+    radial-gradient(circle at 15% 28%, rgba(62,221,255,.08), transparent 28%),
+    var(--bg);
+  font-family: Inter, system-ui, sans-serif; overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+.container { width: min(1220px, calc(100% - 48px)); margin: 0 auto; }
+.section { position: relative; padding: 118px 0; }
+.noise { position: fixed; inset: 0; pointer-events: none; z-index: 80; opacity: .035; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E"); }
+.cursor-glow { position: fixed; width: 420px; height: 420px; border-radius: 50%; pointer-events: none; z-index: -1; transform: translate(-50%,-50%); background: radial-gradient(circle, rgba(123,231,255,.09), rgba(161,140,255,.035) 38%, transparent 70%); }
+.nav-shell { position: fixed; z-index: 70; top: 18px; left: 0; right: 0; }
+.nav { height: 66px; display:flex; align-items:center; justify-content:space-between; padding: 0 18px 0 16px; border:1px solid rgba(255,255,255,.09); background:rgba(8,10,15,.67); backdrop-filter: blur(18px); border-radius: 18px; box-shadow:0 18px 70px rgba(0,0,0,.28); }
+.brand { display:flex; gap:11px; align-items:center; font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:.04em; }
+.brand-mark { width:35px; height:35px; display:grid; place-items:center; border-radius:11px; color:#050607; background:linear-gradient(135deg,var(--lime),var(--cyan)); box-shadow:0 0 35px rgba(123,231,255,.18); }
+.nav-links { display:flex; gap:32px; color:#c7ccd4; font-size:13px; }
+.nav-links a:hover { color:white; }
+.nav-cta { font-size:13px; padding:12px 16px; border-radius:12px; background:#fff; color:#090a0d; font-weight:700; }
+.hero { min-height:100vh; display:flex; align-items:center; padding-top:130px; overflow:hidden; }
+.hero-grid { display:grid; grid-template-columns:.88fr 1.12fr; align-items:center; gap:42px; }
+.hero-copy { position:relative; z-index:3; }
+.eyebrow { display:flex; align-items:center; gap:10px; text-transform:uppercase; letter-spacing:.18em; font-size:11px; font-weight:700; color:#c4cad4; }
+.eyebrow span { width:28px; height:1px; background:linear-gradient(90deg,var(--lime),var(--cyan)); box-shadow:0 0 12px var(--cyan); }
+h1,h2,h3 { font-family:'Space Grotesk',sans-serif; margin:0; letter-spacing:-.045em; }
+h1 { font-size:clamp(62px,7.8vw,122px); line-height:.86; margin:26px 0 30px; }
+h1 em { font-style:normal; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,.72); text-shadow:0 0 50px rgba(123,231,255,.08); }
+.lead { font-size:18px; line-height:1.7; color:var(--muted); max-width:610px; }
+.hero-actions { display:flex; gap:14px; margin-top:34px; }
+.btn { border:0; border-radius:14px; padding:15px 20px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:12px; font-weight:700; transition:.25s ease; }
+.btn:hover { transform:translateY(-2px); }
+.btn.primary { color:#050607; background:linear-gradient(135deg,var(--lime),#e1ff9c); box-shadow:0 16px 48px rgba(186,255,74,.16); }
+.btn.ghost { color:white; background:rgba(255,255,255,.04); border:1px solid var(--line); }
+.play-dot { width:28px; height:28px; display:grid; place-items:center; border-radius:50%; background:rgba(123,231,255,.1); color:var(--cyan); }
+.hero-meta { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:56px; padding-top:24px; border-top:1px solid var(--line); }
+.hero-meta div { display:flex; flex-direction:column; gap:5px; }
+.hero-meta strong { font-size:20px; }
+.hero-meta span { font-size:11px; color:#7f8794; }
+.stage-wrap { position:relative; min-height:690px; }
+.stage-card { position:absolute; inset:0; overflow:hidden; border-radius:34px; border:1px solid rgba(255,255,255,.1); background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.012)); box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 40px 100px rgba(0,0,0,.38); }
+.stage-card:before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 50% 44%, rgba(123,231,255,.1), transparent 30%), linear-gradient(transparent 94%,rgba(255,255,255,.04) 95%); background-size:auto, 100% 34px; pointer-events:none; }
+#scene { position:absolute; inset:0; width:100%; height:100%; }
+.stage-ui { position:absolute; font-family:'Space Grotesk'; font-size:10px; letter-spacing:.16em; color:#808795; }
+.stage-ui strong { color:#dce1e8; font-weight:600; }
+.top-left { top:22px; left:24px; display:grid; gap:6px; }
+.bottom-left { bottom:22px; left:24px; display:flex; gap:8px; align-items:center; }
+.live-dot { width:7px; height:7px; border-radius:50%; background:var(--lime); box-shadow:0 0 15px var(--lime); }
+.right-label { right:22px; top:50%; transform:translateY(-50%); display:grid; justify-items:center; gap:12px; }
+.right-label div { width:1px; height:92px; background:linear-gradient(var(--cyan),transparent); }
+.drag-hint { position:absolute; right:18px; bottom:-32px; color:#606776; font-size:10px; text-transform:uppercase; letter-spacing:.16em; }
+.orb { position:absolute; border-radius:50%; filter:blur(3px); pointer-events:none; }
+.orb-a { width:440px; height:440px; right:-180px; top:160px; border:1px solid rgba(123,231,255,.13); box-shadow:inset 0 0 90px rgba(123,231,255,.05); }
+.orb-b { width:210px; height:210px; left:-90px; bottom:40px; border:1px solid rgba(161,140,255,.14); }
+.precision { border-top:1px solid rgba(255,255,255,.06); }
+.split { display:grid; grid-template-columns:.85fr 1.15fr; gap:90px; align-items:center; }
+.sticky-copy h2,.section-head h2,.inside-copy h2,.purchase h2 { font-size:clamp(44px,5vw,76px); line-height:.98; margin:20px 0 24px; }
+.sticky-copy p,.section-head p,.inside-copy p { color:var(--muted); font-size:17px; line-height:1.75; max-width:640px; }
+.feature-list { margin-top:38px; display:grid; gap:12px; }
+.feature-list div { padding:17px 0; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; gap:28px; }
+.feature-list b { font-size:14px; }
+.feature-list span { color:#777f8b; font-size:12px; text-align:right; }
+.detail-panel { min-height:620px; position:relative; border-radius:34px; overflow:hidden; border:1px solid var(--line); background:radial-gradient(circle at 50% 50%, rgba(123,231,255,.1), transparent 34%), #0a0d13; }
+.detail-panel:after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,transparent 49.8%,rgba(255,255,255,.04) 50%,transparent 50.2%),linear-gradient(transparent 49.8%,rgba(255,255,255,.04) 50%,transparent 50.2%); pointer-events:none; }
+.detail-ring { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border:1px solid rgba(123,231,255,.18); border-radius:50%; }
+.ring-1{width:470px;height:470px}.ring-2{width:360px;height:360px;border-style:dashed;animation:spin 24s linear infinite}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.macro-remote { position:absolute; left:50%; top:51%; width:250px; height:500px; transform:translate(-50%,-50%) rotate(-17deg); border-radius:58px; background:linear-gradient(160deg,#232935,#0b0e14 42%,#1b202b); border:1px solid rgba(255,255,255,.16); box-shadow:-30px 40px 80px rgba(0,0,0,.65), 0 0 80px rgba(123,231,255,.08), inset 0 0 0 5px rgba(255,255,255,.025); }
+.macro-screen { margin:46px 31px 20px; height:96px; border-radius:22px; padding:18px; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(150deg,rgba(123,231,255,.18),rgba(161,140,255,.06)); border:1px solid rgba(255,255,255,.08); }
+.macro-screen span { font-size:9px; color:#8891a0; text-transform:uppercase; letter-spacing:.16em; }
+.macro-screen strong { margin-top:5px; font-family:'Space Grotesk'; }
+.macro-pad { position:relative; width:150px; height:150px; margin:26px auto; border-radius:50%; border:1px solid rgba(255,255,255,.14); background:radial-gradient(circle,#181e28,#0a0d12 68%); box-shadow:0 0 40px rgba(123,231,255,.08); }
+.macro-pad i,.macro-pad b { position:absolute; font-style:normal; font-size:14px; }
+.macro-pad b { width:58px;height:58px;border-radius:50%;display:grid;place-items:center;left:46px;top:46px;background:#dfffa1;color:#050607; }
+.macro-pad i:nth-child(1){top:13px;left:68px}.macro-pad i:nth-child(2){left:15px;top:66px}.macro-pad i:nth-child(4){right:15px;top:66px}.macro-pad i:nth-child(5){bottom:13px;left:68px}
+.macro-row { display:grid; grid-template-columns:repeat(4,1fr); gap:9px; padding:10px 33px; }.macro-row span{height:28px;border-radius:50%;background:#151a22;border:1px solid rgba(255,255,255,.09)}
+.annotation { position:absolute; font-size:10px; color:#aab1bd; letter-spacing:.1em; text-transform:uppercase; display:flex; align-items:center; gap:10px; }
+.annotation span { width:34px; height:1px; background:#55606e; }.a1{left:34px;top:28%}.a2{right:30px;top:52%;flex-direction:row-reverse}.a3{left:52px;bottom:18%}
+.ecosystem { background:linear-gradient(180deg,transparent,rgba(255,255,255,.018),transparent); }
+.section-head { display:grid; grid-template-columns:1fr .68fr; column-gap:60px; align-items:end; }
+.section-head .eyebrow { grid-column:1/-1; }.section-head h2{max-width:780px}.section-head p{margin-bottom:6px}
+.device-grid { margin-top:64px; display:grid; grid-template-columns:1.25fr .75fr .75fr; gap:16px; }
+.device-card { min-height:250px; padding:26px; border-radius:26px; border:1px solid var(--line); background:linear-gradient(150deg,rgba(255,255,255,.055),rgba(255,255,255,.015)); overflow:hidden; position:relative; }
+.device-card h3 { font-size:25px; margin:15px 0 10px; }.device-card p{color:#8e96a4;line-height:1.6;font-size:13px;max-width:350px}.card-kicker{font-size:9px;letter-spacing:.18em;color:#89929f}
+.device-card.large { grid-row:span 2; min-height:516px; }.living-room-art{position:absolute;left:0;right:0;bottom:0;height:58%;background:linear-gradient(180deg,#121722,#090b0f)}
+.tv{position:absolute;width:46%;height:42%;left:27%;top:14%;background:linear-gradient(135deg,#6f83ff,#7be7ff 42%,#211a47);border:5px solid #12151d;box-shadow:0 0 70px rgba(123,231,255,.18)}.tv-glow{position:absolute;width:56%;height:54%;left:22%;top:7%;background:rgba(123,231,255,.16);filter:blur(28px)}.console{position:absolute;width:58%;height:8%;left:21%;top:62%;background:#151922;border-radius:5px}.sofa{position:absolute;width:74%;height:26%;left:13%;bottom:-8%;background:linear-gradient(#222733,#0e1117);border-radius:60px 60px 0 0}
+.device-icon{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;background:#11161f;border:1px solid rgba(255,255,255,.09);font-family:'Space Grotesk';color:var(--cyan)}
+.accent-card{grid-column:2/4;display:flex;align-items:center;gap:30px;background:radial-gradient(circle at 15% 50%,rgba(186,255,74,.12),transparent 28%),linear-gradient(150deg,rgba(255,255,255,.055),rgba(255,255,255,.015))}.pulse{width:86px;height:86px;border:1px solid rgba(186,255,74,.35);border-radius:50%;position:relative;flex:0 0 auto;box-shadow:0 0 50px rgba(186,255,74,.07)}.pulse:before,.pulse:after{content:"";position:absolute;border:1px solid rgba(186,255,74,.18);border-radius:50%;inset:13px}.pulse:after{inset:28px;background:var(--lime);box-shadow:0 0 26px rgba(186,255,74,.7)}
+.inside-grid { display:grid; grid-template-columns:1.1fr .9fr; gap:84px; align-items:center; }.chip-visual{min-height:560px;position:relative;border-radius:34px;overflow:hidden;border:1px solid var(--line);background:radial-gradient(circle at 50% 48%,rgba(161,140,255,.22),transparent 20%),#090b10;perspective:900px}.grid-floor{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:42px 42px;transform:perspective(500px) rotateX(62deg) scale(1.5);transform-origin:50% 85%;opacity:.5}.chip-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotateX(55deg) rotateZ(-24deg);width:250px;height:250px;border-radius:28px;background:linear-gradient(145deg,#262438,#0e1018);border:1px solid rgba(255,255,255,.22);box-shadow:0 40px 80px #000,0 0 90px rgba(161,140,255,.17),inset 0 0 30px rgba(123,231,255,.06);display:flex;flex-direction:column;justify-content:center;align-items:center}.chip-core small{letter-spacing:.22em;color:#8f96a1}.chip-core strong{font-size:82px;line-height:.9;font-family:'Space Grotesk'}.chip-core span{font-size:9px;letter-spacing:.18em;color:var(--cyan);margin-top:10px}.trace{position:absolute;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 12px var(--cyan);opacity:.65}.t1{width:260px;left:2%;top:33%;transform:rotate(18deg)}.t2{width:280px;right:0;top:61%;transform:rotate(-13deg)}.t3{width:180px;left:16%;bottom:19%;transform:rotate(-34deg)}.t4{width:160px;right:12%;top:21%;transform:rotate(42deg)}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:38px}.spec-grid div{padding:20px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.025);display:flex;flex-direction:column;gap:6px}.spec-grid strong{font-family:'Space Grotesk';font-size:20px}.spec-grid span{font-size:11px;color:#777f8c}
+.purchase-card{border:1px solid var(--line);border-radius:34px;padding:56px;background:radial-gradient(circle at 70% 30%,rgba(186,255,74,.09),transparent 26%),linear-gradient(150deg,rgba(255,255,255,.05),rgba(255,255,255,.01));display:grid;grid-template-columns:1fr 340px;gap:50px;align-items:center}.buy-box{padding:28px;border:1px solid rgba(255,255,255,.1);border-radius:24px;background:rgba(5,7,10,.5);display:flex;flex-direction:column;gap:9px}.buy-box>span{color:#8d95a0;font-size:12px}.buy-box strong{font-size:34px;font-family:'Space Grotesk'}.wide{width:100%;margin-top:12px}.buy-box small{font-size:9px;color:#656d77;text-align:center;margin-top:7px}.footer{padding:0 0 46px;display:flex;align-items:center;justify-content:space-between;color:#68717d;font-size:11px}
+@media(max-width:980px){.nav-links{display:none}.hero-grid,.split,.inside-grid,.section-head,.purchase-card{grid-template-columns:1fr}.hero{padding-top:140px}.stage-wrap{min-height:600px;margin-top:30px}.device-grid{grid-template-columns:1fr 1fr}.device-card.large{grid-column:1/-1;grid-row:auto}.accent-card{grid-column:1/-1}.section-head p{margin-top:-10px}.purchase-card{padding:38px}.buy-box{max-width:420px}}
+@media(max-width:640px){.container{width:min(100% - 26px,1220px)}.section{padding:80px 0}.nav{height:60px}.nav-cta{padding:10px 12px;font-size:11px}.brand>span:last-child{display:none}.hero{padding-top:110px}.hero-grid{gap:10px}h1{font-size:62px}.lead{font-size:15px}.hero-actions{flex-direction:column;align-items:stretch}.hero-meta{gap:10px}.hero-meta strong{font-size:16px}.hero-meta span{font-size:9px}.stage-wrap{min-height:500px}.split{gap:50px}.feature-list div{flex-direction:column;gap:7px}.feature-list span{text-align:left}.detail-panel{min-height:500px}.macro-remote{transform:translate(-50%,-50%) rotate(-11deg) scale(.8)}.ring-1{width:360px;height:360px}.ring-2{width:290px;height:290px}.annotation{display:none}.device-grid{grid-template-columns:1fr}.device-card.large,.accent-card{grid-column:auto}.accent-card{flex-direction:column;align-items:flex-start}.chip-visual{min-height:430px}.chip-core{transform:translate(-50%,-50%) rotateX(55deg) rotateZ(-24deg) scale(.72)}.purchase-card{padding:28px}.footer{gap:20px}.footer>span{text-align:right}}</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <header class="nav-shell">
+    <nav class="nav container">
+      <a class="brand" href="#hero" aria-label="NOVA accueil"><span class="brand-mark">N</span><span>NOVA</span></a>
+      <div class="nav-links"><a href="#precision">Précision</a><a href="#ecosystem">Écosystème</a><a href="#inside">Technologie</a></div>
+      <a class="nav-cta" href="#buy">Précommander <span>↗</span></a>
+    </nav>
+  </header>
+  <main>
+    <section id="hero" class="hero section">
+      <div class="hero-grid container">
+        <div class="hero-copy">
+          <div class="eyebrow"><span></span> Contrôle universel, réinventé</div>
+          <h1>Un seul geste.<br><em>Tout répond.</em></h1>
+          <p class="lead">Une télécommande pensée comme un objet de précision : tactile, lumineuse, contextuelle et capable de piloter votre univers multimédia.</p>
+          <div class="hero-actions">
+            <a href="#buy" class="btn primary">Découvrir NOVA <span>→</span></a>
+            <button class="btn ghost" id="explodeBtn"><span class="play-dot">✦</span> Voir l'intérieur</button>
+          </div>
+          <div class="hero-meta">
+            <div><strong>0.08 s</strong><span>temps de réponse</span></div>
+            <div><strong>120+</strong><span>marques compatibles</span></div>
+            <div><strong>30 j</strong><span>autonomie typique</span></div>
+          </div>
+        </div>
+        <div class="stage-wrap" aria-label="Télécommande 3D interactive">
+          <div class="stage-card">
+            <canvas id="scene"></canvas>
+            <div class="stage-ui top-left"><span>MODEL</span><strong>NOVA / X1</strong></div>
+            <div class="stage-ui bottom-left"><span class="live-dot"></span> Interactive object</div>
+            <div class="stage-ui right-label"><span>01</span><div></div><strong>FORM</strong></div>
+          </div>
+          <div class="drag-hint">Glissez pour tourner • scrollez pour explorer</div>
+        </div>
+      </div>
+      <div class="orb orb-a"></div><div class="orb orb-b"></div>
+    </section>
+    <section id="precision" class="section precision">
+      <div class="container split">
+        <div class="sticky-copy">
+          <div class="eyebrow"><span></span> 01 — Précision</div>
+          <h2>Conçue pour disparaître dans la main.</h2>
+          <p>La forme légèrement asymétrique guide naturellement le pouce. Les touches les plus utilisées sont sculptées pour être reconnues sans regarder.</p>
+          <div class="feature-list">
+            <div><b>Haptique adaptative</b><span>Retour tactile selon l'action.</span></div>
+            <div><b>Anneau orbital</b><span>Navigation précise et gestuelle.</span></div>
+            <div><b>Éclairage contextuel</b><span>Seules les touches utiles s'allument.</span></div>
+          </div>
+        </div>
+        <div class="detail-panel">
+          <div class="detail-ring ring-1"></div><div class="detail-ring ring-2"></div>
+          <div class="macro-remote"><div class="macro-screen"><span>Living room</span><strong>Movie mode</strong></div><div class="macro-pad"><i>⌃</i><i>‹</i><b>OK</b><i>›</i><i>⌄</i></div><div class="macro-row"><span></span><span></span><span></span><span></span></div></div>
+          <div class="annotation a1"><span></span>Verre micro-texturé</div><div class="annotation a2"><span></span>Châssis aluminium</div><div class="annotation a3"><span></span>Retour haptique</div>
+        </div>
+      </div>
+    </section>
+    <section id="ecosystem" class="section ecosystem">
+      <div class="container">
+        <div class="section-head"><div class="eyebrow"><span></span> 02 — Écosystème</div><h2>Une interface.<br>Des centaines d'appareils.</h2><p>NOVA apprend les habitudes de la pièce et compose automatiquement les commandes les plus pertinentes.</p></div>
+        <div class="device-grid">
+          <article class="device-card large"><div class="card-kicker">SCENE / CINEMA</div><h3>Film du soir</h3><p>TV, ampli, lumière et climatisation se synchronisent en un seul appui.</p><div class="living-room-art"><div class="tv-glow"></div><div class="tv"></div><div class="console"></div><div class="sofa"></div></div></article>
+          <article class="device-card"><div class="device-icon">TV</div><h3>Smart TV</h3><p>Samsung, LG, Sony et plus.</p></article>
+          <article class="device-card"><div class="device-icon">◫</div><h3>Box & streaming</h3><p>Apple TV, Android TV, Fire TV.</p></article>
+          <article class="device-card"><div class="device-icon">◒</div><h3>Audio</h3><p>Barres de son, amplis et multiroom.</p></article>
+          <article class="device-card accent-card"><span class="pulse"></span><div><div class="card-kicker">NOVA LINK</div><h3>Détection automatique</h3><p>Les appareils apparaissent dès qu'ils sont reconnus sur votre réseau.</p></div></article>
+        </div>
+      </div>
+    </section>
+    <section id="inside" class="section inside">
+      <div class="container inside-grid">
+        <div class="chip-visual"><div class="grid-floor"></div><div class="chip-core"><small>NOVA</small><strong>N1</strong><span>NEURAL CONTROL</span></div><div class="trace t1"></div><div class="trace t2"></div><div class="trace t3"></div><div class="trace t4"></div></div>
+        <div class="inside-copy"><div class="eyebrow"><span></span> 03 — Technologie</div><h2>Rapide parce qu'elle anticipe.</h2><p>Le moteur NOVA N1 mémorise les séquences d'usage, réduit le nombre d'actions et garde la logique de contrôle locale pour une réponse instantanée.</p><div class="spec-grid"><div><strong>BLE 5.3</strong><span>faible latence</span></div><div><strong>IR 360°</strong><span>multi-direction</span></div><div><strong>Wi‑Fi</strong><span>contrôle réseau</span></div><div><strong>USB‑C</strong><span>charge rapide</span></div></div></div>
+      </div>
+    </section>
+    <section id="buy" class="section purchase"><div class="container purchase-card"><div><div class="eyebrow"><span></span> Édition de lancement</div><h2>Moins de boutons.<br>Plus de contrôle.</h2></div><div class="buy-box"><span>À partir de</span><strong>1 990 MAD</strong><button class="btn primary wide">Précommander <span>→</span></button><small>Prototype de démonstration — concept landing page.</small></div></div></section>
+  </main>
+  <footer class="footer container"><div class="brand"><span class="brand-mark">N</span><span>NOVA</span></div><span>Concept 3D interactif — démonstration.</span></footer>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script>gsap.registerPlugin(ScrollTrigger);
+
+// Cursor ambient light
+const glow = document.getElementById('cursorGlow');
+window.addEventListener('pointermove', (e) => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
+});
+
+// ---------- Three.js remote ----------
+const canvas = document.getElementById('scene');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+camera.position.set(0, 0.6, 8.5);
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.25;
+
+const root = new THREE.Group();
+root.rotation.set(-0.22, -0.55, -0.08);
+scene.add(root);
+
+const matDark = new THREE.MeshPhysicalMaterial({ color: 0x11151d, roughness: 0.28, metalness: 0.72, clearcoat: 0.65, clearcoatRoughness: 0.24 });
+const matEdge = new THREE.MeshPhysicalMaterial({ color: 0x39404c, roughness: 0.25, metalness: 0.88, clearcoat: 0.45 });
+const matButton = new THREE.MeshStandardMaterial({ color: 0x202631, roughness: 0.4, metalness: 0.25 });
+const matLime = new THREE.MeshStandardMaterial({ color: 0xbaff4a, emissive: 0x4d7a00, emissiveIntensity: 1.8, roughness: 0.25 });
+const matCyan = new THREE.MeshStandardMaterial({ color: 0x7be7ff, emissive: 0x1c7687, emissiveIntensity: 1.35, roughness: 0.22 });
+const matBoard = new THREE.MeshStandardMaterial({ color: 0x131a19, roughness: 0.45, metalness: 0.3 });
+const matCopper = new THREE.MeshStandardMaterial({ color: 0xb77b43, emissive: 0x4d1a00, emissiveIntensity: 0.5, roughness: 0.35, metalness: 0.75 });
+
+function roundedBox(w, h, d, r = 0.22, mat = matDark) {
+  const g = new THREE.BoxGeometry(w, h, d, 5, 5, 3);
+  const m = new THREE.Mesh(g, mat);
+  m.geometry.computeVertexNormals();
+  return m;
+}
+
+const shell = roundedBox(2.25, 5.55, 0.58, .2, matDark);
+shell.position.z = 0.28;
+root.add(shell);
+
+const innerFrame = roundedBox(2.06, 5.33, 0.18, .18, matEdge);
+innerFrame.position.z = 0.62;
+root.add(innerFrame);
+
+// top glass area
+const display = roundedBox(1.68, 1.16, 0.11, .18, new THREE.MeshPhysicalMaterial({color:0x0b1118,roughness:.12,metalness:.25,transmission:.05,clearcoat:1}));
+display.position.set(0, 1.64, 0.79);
+root.add(display);
+const displayAccent = roundedBox(1.23, .035, .04, .02, matCyan);
+displayAccent.position.set(0,1.25,.87);
+root.add(displayAccent);
+
+// navigation ring
+const ring = new THREE.Mesh(new THREE.TorusGeometry(.53,.09,24,80), matEdge);
+ring.rotation.x = Math.PI/2;
+ring.position.set(0,.43,.82);
+root.add(ring);
+const ok = new THREE.Mesh(new THREE.CylinderGeometry(.28,.28,.11,48), matLime);
+ok.rotation.x=Math.PI/2;
+ok.position.set(0,.43,.86);
+root.add(ok);
+
+// buttons
+const buttons=[];
+function addButton(x,y,r=.16,material=matButton){
+  const b=new THREE.Mesh(new THREE.CylinderGeometry(r,r,.10,32),material);
+  b.rotation.x=Math.PI/2;
+  b.position.set(x,y,.82);
+  root.add(b);
+  buttons.push(b);
+  return b;
+}
+addButton(-.63,-.48,.15);
+addButton(.63,-.48,.15);
+addButton(-.63,-.95,.15);
+addButton(.63,-.95,.15);
+for(let row=0;row<4;row++){
+  for(let col=0;col<3;col++){
+    addButton((col-1)*.53,-1.55-row*.47,.13, row===3 && col===1 ? matCyan : matButton);
+  }
+}
+
+// Internals for exploded view
+const board = roundedBox(1.8,4.6,.12,.12,matBoard);
+board.position.z=-.08;
+root.add(board);
+
+const battery = roundedBox(1.12,1.75,.22,.12,new THREE.MeshStandardMaterial({color:0x161a20,roughness:.5,metalness:.2}));
+battery.position.set(0,-1.5,-.26);
+root.add(battery);
+
+const chip = roundedBox(.72,.72,.16,.1,new THREE.MeshStandardMaterial({color:0x111019,roughness:.25,metalness:.7}));
+chip.position.set(0,.7,-.22);
+root.add(chip);
+
+const chipGlow = roundedBox(.46,.055,.03,.01,matLime);
+chipGlow.position.set(0,.7,-.12);
+root.add(chipGlow);
+
+for(let i=0;i<14;i++){
+  const trace = roundedBox(Math.random()*.55+.2,.025,.025,.01,matCopper);
+  trace.position.set((Math.random()-.5)*1.35,(Math.random()-.5)*3.55,-.13);
+  trace.rotation.z = Math.random()>.5 ? 0 : Math.PI/2;
+  root.add(trace);
+}
+
+// Edge screws
+for(const y of [2.25,-2.25]){
+  for(const x of [-.82,.82]){
+    const s=addButton(x,y,.055,matCopper);
+    s.position.z=.87;
+  }
+}
+
+const hemi = new THREE.HemisphereLight(0xbcd8ff, 0x090a0f, 1.3);
+scene.add(hemi);
+const key = new THREE.PointLight(0x7be7ff, 18, 16, 2);
+key.position.set(3,3,5);
+scene.add(key);
+const rim = new THREE.PointLight(0xbaff4a, 12, 14, 2);
+rim.position.set(-4,-2,4);
+scene.add(rim);
+const warm = new THREE.PointLight(0x8b66ff, 10, 12, 2);
+warm.position.set(1,-4,2);
+scene.add(warm);
+
+// subtle particles
+const pGeo = new THREE.BufferGeometry();
+const pCount=170;
+const positions=new Float32Array(pCount*3);
+for(let i=0;i<pCount;i++){
+  positions[i*3]=(Math.random()-.5)*10;
+  positions[i*3+1]=(Math.random()-.5)*10;
+  positions[i*3+2]=(Math.random()-.5)*7;
+}
+pGeo.setAttribute('position',new THREE.BufferAttribute(positions,3));
+const particles=new THREE.Points(
+  pGeo,
+  new THREE.PointsMaterial({color:0x7be7ff,size:.018,transparent:true,opacity:.38})
+);
+scene.add(particles);
+
+let mouseX=0,mouseY=0,isDragging=false,lastX=0,lastY=0;
+
+canvas.addEventListener('pointerdown',e=>{
+  isDragging=true;
+  lastX=e.clientX;
+  lastY=e.clientY;
+  canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener('pointerup',()=>isDragging=false);
+canvas.addEventListener('pointermove',e=>{
+  const rect=canvas.getBoundingClientRect();
+  mouseX=((e.clientX-rect.left)/rect.width-.5);
+  mouseY=((e.clientY-rect.top)/rect.height-.5);
+  if(isDragging){
+    root.rotation.y+=(e.clientX-lastX)*.008;
+    root.rotation.x+=(e.clientY-lastY)*.006;
+    lastX=e.clientX;
+    lastY=e.clientY;
+  }
+});
+
+function resize(){
+  const rect=canvas.parentElement.getBoundingClientRect();
+  renderer.setSize(rect.width,rect.height,false);
+  camera.aspect=rect.width/rect.height;
+  camera.updateProjectionMatrix();
+}
+window.addEventListener('resize',resize);
+resize();
+
+let t=0;
+function animate(){
+  requestAnimationFrame(animate);
+  t+=.008;
+  if(!isDragging){
+    root.rotation.y += (mouseX*.22 - (root.rotation.y + .55))*.018;
+    root.rotation.x += (-.22+mouseY*.12-root.rotation.x)*.015;
+    root.position.y=Math.sin(t)*.06;
+  }
+  particles.rotation.y+=.0004;
+  renderer.render(scene,camera);
+}
+animate();
+
+let exploded=false;
+const explodeBtn=document.getElementById('explodeBtn');
+
+function setExploded(on){
+  exploded=on;
+  const tl=gsap.timeline({defaults:{duration:1.05,ease:'power3.inOut'}});
+  tl.to(shell.position,{z:on?-1.7:.28},0)
+    .to(innerFrame.position,{z:on?-0.8:.62},0)
+    .to(board.position,{z:on?.15:-.08},0)
+    .to(battery.position,{z:on?.9:-.26,y:on?-1.85:-1.5},0)
+    .to(chip.position,{z:on?1.35:-.22,y:on?.92:.7},0)
+    .to(chipGlow.position,{z:on?1.48:-.12,y:on?.92:.7},0)
+    .to(display.position,{z:on?2.25:.79,y:on?1.92:1.64},0)
+    .to(displayAccent.position,{z:on?2.38:.87,y:on?1.53:1.25},0)
+    .to(ring.position,{z:on?1.82:.82,y:on?.55:.43},0)
+    .to(ok.position,{z:on?1.96:.86,y:on?.55:.43},0);
+
+  buttons.forEach((b,i)=>{
+    tl.to(
+      b.position,
+      {
+        z:on?1.5+(i%3)*.08:.82,
+        y:on?b.position.y+(i%2?-.06:.06):(b.userData.baseY ?? b.position.y),
+        duration:.85
+      },
+      0
+    );
+  });
+
+  explodeBtn.innerHTML = on
+    ? '<span class="play-dot">↺</span> Réassembler'
+    : '<span class="play-dot">✦</span> Voir l\'intérieur';
+}
+
+buttons.forEach(b=>b.userData.baseY=b.position.y);
+explodeBtn.addEventListener('click',()=>setExploded(!exploded));
+
+// Scroll-driven hero object
+ScrollTrigger.create({
+  trigger:'#hero',
+  start:'top top',
+  end:'bottom top',
+  scrub:1,
+  onUpdate:self=>{
+    const p=self.progress;
+    root.scale.setScalar(1-p*.16);
+    root.rotation.z=-.08+p*.32;
+    root.position.x=p*.55;
+  }
+});
+
+// UI entrance
+const revealTargets=[
+  '.eyebrow',
+  'h1',
+  '.lead',
+  '.hero-actions',
+  '.hero-meta',
+  '.device-card',
+  '.feature-list > div',
+  '.spec-grid > div',
+  '.purchase-card'
+];
+
+revealTargets.forEach(sel=>{
+  gsap.utils.toArray(sel).forEach(el=>{
+    gsap.from(el,{
+      opacity:0,
+      y:28,
+      duration:.9,
+      ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 88%',once:true}
+    });
+  });
+});
+
+// Macro remote parallax
+if(document.querySelector('.macro-remote')){
+  gsap.to('.macro-remote',{
+    y:-26,
+    rotation:-10,
+    scrollTrigger:{
+      trigger:'.detail-panel',
+      start:'top bottom',
+      end:'bottom top',
+      scrub:1.2
+    }
+  });
+}</script>
+</body>
+</html>
